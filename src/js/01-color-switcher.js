@@ -1,5 +1,5 @@
-const startButton = document.getElementsByTagName('.button');
-const stopButton = document.getElementsByTagName('.button');
+const startButton = document.querySelector('button[data-start]');
+const stopButton = document.querySelector('button[data-stop]');
 
 let colorID = null; 
 
