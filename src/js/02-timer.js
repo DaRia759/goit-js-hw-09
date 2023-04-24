@@ -4,6 +4,10 @@ import Notiflix from 'notiflix';
 
 const inputDate = document.getElementById('#datetime-picker');
 const startBtn = document.querySelector('button[data-start]');
+const timerDays = document.querySelector('span[data-days]');
+const timerHours = document.querySelector('span[data-hours]');
+const timerMinutes = document.querySelector('span[data-minutes]');
+const timerSeconds = document.querySelector('span[data-seconds]');
 
 let chosenDate = 0;
 
@@ -34,9 +38,17 @@ startBtn.addEventListener('click', () => {
     const timerID = setInterval(() => {
         let timeDiff = (Date.now() - chosenDate) * -1;
 
-        if (timeDiff < 0) {
+        if (timeDiff <= 0) {
             clearInterval(timerID);
-            Notiflix.Notify.info('Сountdown is completed!');
+            Notiflix.Notify.info('Countdown is completed!');
+            return;
+        } else {
+            const { days, hours, minutes, seconds } = convertMs(timeDiff);
+
+            timerDays.textContent = addLeadingZero(days);
+            timerHours.textContent = addLeadingZero(hours);
+            timerMinutes.textContent = addLeadingZero(minutes);
+            timerSeconds.textContent = addLeadingZero(seconds);
         }
 
     })
@@ -45,8 +57,6 @@ startBtn.addEventListener('click', () => {
 function addLeadingZero(value) {
   return value.toString().padStart(2, '0');
 };
-
-// function countdown =;
 
 function convertMs(ms) {
  
