@@ -1,10 +1,15 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import Notiflix from 'notiflix';
 
 const inputDate = document.getElementById('#datetime-picker');
-const startBtn = document.getElementsByTagName('.button');
+const startBtn = document.querySelector('button[data-start]');
 
-let selectedDates = '';
+let chosenDate = 0;
+
+const currentDate = new Date();
+
+startBtn.disabled = true;
 
 const options = {
   enableTime: true,
@@ -12,13 +17,36 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
+    if (Date.now() > selectedDates[0].getTime()) {
+        Notiflix.Notify.warning('Please choose a date in the future');
+    } else {
+        startBtn.disabled = false;
+        chosenDate = selectedDates[0].getTime();
+    }
   },
 };
 
-const currentDate = new Date();
+flatpickr('#datetime-picker', options); 
 
-const ms = selectedDates - currentDate ;
+startBtn.addEventListener('click', () => {
+    startBtn.disabled = true;
+
+    const timerID = setInterval(() => {
+        let timeDiff = (Date.now() - chosenDate) * -1;
+
+        if (timeDiff < 0) {
+            clearInterval(timerID);
+            Notiflix.Notify.info('Сountdown is completed!');
+        }
+
+    })
+}, 1000);
+
+function addLeadingZero(value) {
+  return value.toString().padStart(2, '0');
+};
+
+function countdown = 
 
 function convertMs(ms) {
  
@@ -37,7 +65,7 @@ function convertMs(ms) {
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
-}
+};
 
 console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
 console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
