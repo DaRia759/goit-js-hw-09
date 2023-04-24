@@ -46,7 +46,7 @@ function addLeadingZero(value) {
   return value.toString().padStart(2, '0');
 };
 
-function countdown = 
+// function countdown =;
 
 function convertMs(ms) {
  
