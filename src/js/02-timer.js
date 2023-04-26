@@ -4,6 +4,7 @@ import Notiflix from 'notiflix';
 
 const inputDate = document.getElementById('#datetime-picker');
 const startBtn = document.querySelector('button[data-start]');
+const timerSet = document.querySelector('.timer');
 const timerDays = document.querySelector('span[data-days]');
 const timerHours = document.querySelector('span[data-hours]');
 const timerMinutes = document.querySelector('span[data-minutes]');
@@ -80,3 +81,9 @@ function convertMs(ms) {
 console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
 console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
 console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
+
+
+timerSet.style.fontFamily = "cursive";
+timerSet.style.fontSize = '50px';
+timerSet.style.display = 'flex';
+timerSet.style.justifyContent = 'space-between';
