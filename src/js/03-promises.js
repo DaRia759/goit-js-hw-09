@@ -7,21 +7,17 @@ const amount = document.querySelector("input[name='amount']");
 const submitForm = document.querySelector('.form');
 
 function createPromise(position, delay) {
-  const shouldResolve = Math.random() > 0.3;
-
-  if (shouldResolve) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve({ position, delay });
-      }, delay);
-    });
-  } else {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
+  
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const shouldResolve = Math.random() > 0.3;
+      if (shouldResolve) {
+        resolve({ position, delay })
+      } else {
         reject({ position, delay });
-      }, delay);
-    });
-  }
+      }
+    }, delay);
+  })
 };
 
 submitForm.addEventListener('submit', (event) => {
